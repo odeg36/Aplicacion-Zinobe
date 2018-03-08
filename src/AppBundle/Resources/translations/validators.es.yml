@@ -1,0 +1,5 @@
+mensaje:
+    error:
+        validar:
+            nombre: Lo sentimos el cliente posee el nombre de "%nombre%", no se le puede vender el producto.
+            cantidad: Lo sentimos no podemos vender el producto "%producto%", ya que no posee tantas cantidades disponibles. Cantidades disponibles %cantidad%.

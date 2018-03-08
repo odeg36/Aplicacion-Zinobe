@@ -1,0 +1,48 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% extends 'AppBundle::standard_layout.html.twig' %}
+
+{% block sonata_nav %}
+{% endblock sonata_nav %}
+
+{% block logo %}
+{% endblock logo %}
+
+{% block sonata_left_side %}
+{% endblock sonata_left_side %}
+
+{% block body_attributes %}class="sonata-bc login-page"{% endblock %}
+
+{% block sonata_wrapper %}
+    <div class="col-xs-12 login-form">
+        <div class="login-box">
+            <div class="login-logo">
+                <a href="{{ path('sonata_admin_dashboard') }}">
+                    {% if 'single_image' == sonata_admin.adminPool.getOption('title_mode') or 'both' == sonata_admin.adminPool.getOption('title_mode') %}
+                        <img width="10%" src="{{ asset(sonata_admin.adminPool.titlelogo) }}" alt="{{ sonata_admin.adminPool.title }}" >
+                        <span>{{ sonata_admin.adminPool.title }}</span>
+                    {% endif %}
+                </a>
+            </div>
+            <div class="login-box-body">
+                {% block fos_user_content %}
+                    <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
+                    <p>
+                        <a href="{{ path('sonata_admin_dashboard') }}">{{ 'registration.back'|trans }}</a>
+                    </p>
+                {% endblock fos_user_content %}
+            </div>
+        </div>
+    </div>
+{% endblock sonata_wrapper %}

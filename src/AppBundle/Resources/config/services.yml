@@ -1,0 +1,27 @@
+services:
+#    app.example:
+#        class: AppBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    sonata.block.service.slide:
+        class: AppBundle\Block\Service\SlideBlockService
+        arguments:
+            - sonata.block.service.slide
+            - "@templating"
+        tags:
+            - { name: sonata.block }
+
+# group sonata_user
+    sonata.user.admin.user:
+        class: AppBundle\Admin\UsuarioAdmin
+        arguments: [ ~, Application\Sonata\UserBundle\Entity\User, ~ ]
+        tags:
+            - { name: sonata.admin,manager_type: orm, group: sonata_user, label: titulo.usuario }
+        calls:
+            - [setUserManager, ['@fos_user.user_manager']]
+        
+    sonata.user.admin.group:
+        class: AppBundle\Admin\GrupoAdmin
+        arguments: [ ~, Application\Sonata\UserBundle\Entity\Group, ~ ]
+        tags:
+            - { name: sonata.admin,manager_type: orm, group: sonata_user, label: titulo.grupo }

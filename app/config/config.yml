@@ -1,0 +1,106 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: custom/assetic.yml }
+    - { resource: sonata/sonata_block.yml }
+    - { resource: sonata/sonata_user.yml }
+    - { resource: sonata/sonata_admin.yml }
+    - { resource: fosuser/fos_user.yml }
+    - { resource: nelmio/nelmio.yml }
+    - { resource: nelmio/nelmio_cors.yml }
+    - { resource: gedmo/doctrine_extensions.yml }
+    - { resource: "@AppBundle/Resources/config/services.yml" }
+    - { resource: "@AppBundle/Resources/config/custom_services.yml" }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    formato_de_fecha:
+        export:     d-m-Y
+        list:       dd-MM-yyyy
+        form:       dd-MM-yyyy
+        show:       dd-MM-yyyy
+        showTwig:   d-m-Y
+    
+framework:
+    #esi: ~
+    translator: 
+        fallbacks: ["%locale%"]
+    secret: '%secret%'
+    router:
+        resource: '%kernel.project_dir%/app/config/routing.yml'
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    #serializer: { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale: '%locale%'
+    trusted_hosts: ~
+    session:
+        # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id: session.handler.native_file
+        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+    fragments: ~
+    http_method_override: true
+    assets: ~
+    php_errors:
+        log: true
+
+# Twig Configuration
+twig:
+    globals:
+        formato_de_fecha: %formato_de_fecha%
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    form_themes:
+        - 'SonataCoreBundle:Form:datepicker.html.twig'
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+         # Set the default connection to default
+        default_connection: default
+        connections:
+            default:
+                server_version: 5.4
+                driver: '%pdo_driver%'
+                host: '%database_host%'
+                port: '%database_port%'
+                dbname: '%database_name%'
+                user: '%database_user%'
+                password: '%database_password%'
+                charset: UTF8
+
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+    orm:      
+        auto_generate_proxy_classes: "%kernel.debug%"
+        default_entity_manager: default
+        entity_managers:
+            # Register which bundle should use which connection
+            default:
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                connection: default
+                auto_mapping: true
+                mappings:
+                    gedmo_loggable:
+                        type: annotation
+                        prefix: Gedmo\Loggable\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
+                        alias: GedmoLoggable # (optional) it will default to the name set for the mappingmapping
+                        is_bundle: false
+                dql:
+                    string_functions:
+                        string_agg: ITO\LogicBundle\Query\Postgresql\StringAggFunction
+                        cast: ITO\LogicBundle\Query\Postgresql\CastAsStringFunction
+             
+# Swiftmailer Configuration
+swiftmailer:
+    transport: '%mailer_transport%'
+    host: '%mailer_host%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
+    spool: { type: memory }

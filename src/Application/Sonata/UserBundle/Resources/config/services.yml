@@ -1,0 +1,7 @@
+services:
+#    ito_logic.example:
+#        class: ITO\LogicBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    #security.acl.permission.map:
+    #    class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap

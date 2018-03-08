@@ -1,0 +1,3 @@
+{
+    "translations": {"it":{"SonataBlockBundle":{"sonata.block.container":"Contenitore","sonata.block.text":"Testo semplice","sonata.block.rss":"Feed RSS","sonata.block.menu":"Menu","sonata.block.template":"Template"}}}
+}
