@@ -24,7 +24,9 @@ $ php bin/console do:sc:up --force
 Este comando creara el esquema de base de datos
 
 $ php bin/console assets:install web
+
 $ php bin/console assetic:dump
+
 $ php bin/console bazinga:js-translation:dump
 
 Estos comandos son para el uso de los archivos como css, javascript e imágenes.
